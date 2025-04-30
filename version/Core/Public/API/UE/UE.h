@@ -502,7 +502,7 @@ struct UProperty : UField
 			throw std::invalid_argument("Object does not contain this property.");
 		if (sizeof(T) != this->ElementSizeField())
 			throw std::invalid_argument("Expected size does not match property size.");
-		return *((T*)(object + this->Offset_InternalField()));
+		return *std::bit_cast<T*>(object + this->Offset_InternalField());
 	}
 
 	template<typename T>
@@ -512,7 +512,7 @@ struct UProperty : UField
 			throw std::invalid_argument("Object does not contain this property.");
 		if (sizeof(T) != this->ElementSizeField())
 			throw std::invalid_argument("Expected size does not match property size.");
-		*((T*)(object + this->Offset_InternalField())) = value;
+		*std::bit_cast<T*>(object + this->Offset_InternalField()) = value;
 	}
 };
 
